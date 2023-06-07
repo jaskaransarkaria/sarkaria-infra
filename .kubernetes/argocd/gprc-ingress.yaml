@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-grpc-ingress
+  namespace: argocd
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argo-cd-argocd-server
+            port:
+              name: https
+    host: grpc.argocd.sarkaria.uk
+  tls:
+  - hosts:
+    - grpc.argocd.sarkaria.uk
+    secretName: argocd-server-tls # do not change, this is provided by Argo CD
+
+
