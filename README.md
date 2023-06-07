@@ -18,6 +18,7 @@ There are a few steps we need to follow before we can access argo cd correctly [
 kubectl edit configmap argocd-cmd-params-cm
 
 # append below to the configmap
+# application.namespaces: "<enter-namespaces-here>,"
 # server.ingress.enabled: "true"
 # server.insecure: "true"
 ```
