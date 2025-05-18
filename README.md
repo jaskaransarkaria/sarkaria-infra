@@ -13,6 +13,7 @@ TF_VAR_CLUSTER_NAME=<cluster-name> TF_VAR_MY_IP_ADDRESS=<ip-address> TF_VAR_CIVO
 ## Setting up Argo CD
 
 ### Accessing quickly
+
 You can forward the port so you access it locally:
 
 ```bash
@@ -26,7 +27,6 @@ Then access it on `http://localhost:8080` and log in using the steps below.
 Argo by default handles TLS termination itself and also redirects http -> https. If your ingress controller handles that as well you can end up in 307 redirect loops.
 
 Corret this issue by following [this](https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts). Edit the config map and apply the yaml manifests in [.kubernetes/argocd](./.kubernetes/argocd/). The manifests setup ingress domains with lets encrypt.
-
 
 ```bash
 kubectl edit configmap argocd-cmd-params-cm

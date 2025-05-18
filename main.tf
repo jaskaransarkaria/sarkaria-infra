@@ -61,12 +61,20 @@ resource "civo_firewall_rule" "k3s_api_server" {
 resource "civo_kubernetes_cluster" "cluster" {
   region       = "LON1"
   name         = var.CLUSTER_NAME
-  applications = "Nginx,metrics-server,argo-cd,civo-cluster-autoscaler,cert-manager"
+  applications = "metrics-server,argo-cd,civo-cluster-autoscaler,cert-manager,nginx"
   firewall_id  = civo_firewall.firewall.id
   network_id   = civo_network.network.id
 
   pools {
     size       = element(data.civo_size.small.sizes, 1).name
-    node_count = 3
+    node_count = 1
   }
+
+}
+
+resource "civo_kubernetes_node_pool" "medium" {
+  cluster_id = civo_kubernetes_cluster.cluster.id
+  node_count = 2
+  size       = "g4s.kube.medium"
+  region     = "LON1"
 }
